@@ -75,7 +75,14 @@ class Square
         return containsFrog;
     }
 
-    void changeFrog(int frogType)
+    int move()
+    {
+        int temp = this.containsFrog;
+        this.containsFrog = 0;
+        return temp;
+    }
+
+    void moveTo(int frogType)
     {
         this.containsFrog = frogType;
         if(frogType == 1)
@@ -86,16 +93,5 @@ class Square
         {
             displayImage.setImage(new Image("RedFrog.png"));
         }
-    }
-
-    /**
-     * Method to move a frog from one sqaure to another
-     * @param row the row that the frog will move to (0-4)
-     * @param column the column that the frog will move to (0-4)
-     */
-
-    void moveTo(int row, int column)
-    {
-
     }
 }

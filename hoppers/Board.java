@@ -60,18 +60,45 @@ class Board
         {
             return;
         }
+        else if(endPosition[0] - startPosition[0] /* != */ < 2)
+        {
+            return;
+        }
         
         if(startPosition[0] == endPosition[0])
         {
             // going horizontally
+
+            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[1] += signum(endPosition[1] - startPosition[1]))
+            {
+                if(grid.get(tempCoords).hasFrog() > 0)
+                {
+                    return;
+                }
+            }
         }
         else if(startPosition[1] == endPosition[1])
         {
             // going vertically
+            
+            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[0] += signum(endPosition[0] - startPosition[0]))
+            {
+                if(grid.get(tempCoords).hasFrog() > 0)
+                {
+                    return;
+                }
+            }
         }
         else if(endPosition[0] - startPosition[0] == endPosition[1] - startPosition[1])
         {
             // going diagonlly
+            
+            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[0] += signum(endPosition[0] - startPosition[0]), tempCoords[1] += signum(endPosition[1] - startPosition[1]))
+            {
+                return;
+            }
         }
+
+        grid.get(endPosition).moveTo(grid.get(startPosition).hasFrog());
     }
 }
