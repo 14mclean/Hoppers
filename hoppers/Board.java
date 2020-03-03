@@ -1,12 +1,12 @@
 import java.util.*;
 import javax.swing.*;
-import hoppers.*;
+import java.awt.*;
 
 public class Board
 {
     private Dictionary<int[], Square> grid = new Hashtable<int[], Square>();
-    private JFrame win = new JFrame(new GridLayout());
-    //private JPanel panel = new JPanel(new GridLayout());
+    private JFrame win = new JFrame("Hoppers");
+    private JPanel panel = new JPanel(new GridLayout(5,5));
 
 
     Board()
@@ -21,31 +21,30 @@ public class Board
         Red frog - 2,4
         */
 
-        win.setSize(500, 500);
-
         int[] tempArray = {0,0};
 
-        for(int row = 0; row < sqrt(grid.length); row++, tempArray[0]++)
+        for(int row = 0; row < Math.sqrt(grid.size()); row++, tempArray[0]++)
         {
-            for(int column = 0; column < sqrt(grid.length); column++, tempArray[1]++)
+            for(int column = 0; column < Math.sqrt(grid.size()); column++, tempArray[1]++)
             {
 
                 if(row == 4 && column == 2)
                 {
-                    grid.put(tempArray, new Square(row, column, 2));
+                    grid.put(tempArray, new Square(panel, row, column, 2));
                 }
-                else if(row + column == 4 || row == coulmn)
+                else if(row + column == 4 || row == column)
                 {
-                    grid.put(tempArray, new Square(row, column, true));
+                    grid.put(tempArray, new Square(panel, row, column, true));
                 }
                 else
                 {
-                    grid.put(tempArray, new Square(row, column, false));
+                    grid.put(tempArray, new Square(panel, row, column, false));
                 }
             }
         }
 
-        win.setVisble(true);
+        win.setSize(500, 500);
+        win.setVisible(true);
     }
 
     /**
@@ -76,7 +75,7 @@ public class Board
         {
             // going horizontally
 
-            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[1] += signum(endPosition[1] - startPosition[1]))
+            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[1] += Math.signum(endPosition[1] - startPosition[1]))
             {
                 if(grid.get(tempCoords).hasFrog() > 0)
                 {
@@ -88,7 +87,7 @@ public class Board
         {
             // going vertically
             
-            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[0] += signum(endPosition[0] - startPosition[0]))
+            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[0] += Math.signum(endPosition[0] - startPosition[0]))
             {
                 if(grid.get(tempCoords).hasFrog() > 0)
                 {
@@ -100,9 +99,12 @@ public class Board
         {
             // going diagonlly
             
-            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[0] += signum(endPosition[0] - startPosition[0]), tempCoords[1] += signum(endPosition[1] - startPosition[1]))
+            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[0] += Math.signum(endPosition[0] - startPosition[0]), tempCoords[1] += Math.signum(endPosition[1] - startPosition[1]))
             {
-                return;
+                if(grid.get(tempCoords).hasFrog() > 0)
+                {
+                    return;
+                }
             }
         }
 

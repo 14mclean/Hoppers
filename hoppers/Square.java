@@ -1,15 +1,12 @@
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import hoppers.*;
+import javax.swing.*;
 
 public class Square
 {
-    private ImageIcon displayImage = new ImageIcon();
+    private ImageIcon displayImage;
     private boolean containsLilypad;
     private int containsFrog;
     private int[] coordinates = new int[2];
-    private JFrame win;
+    private JPanel win;
     private JButton button;
 
     /**
@@ -18,24 +15,25 @@ public class Square
      * @param frogType If =0: no frog, if =1: green frog, if =2: red frog
      */
 
-    Square(JFrame win, int row, int column, int frogType)
+    Square(JPanel win, int row, int column, int frogType)
     {
         this.win = win;
         this.containsLilypad = true;
         this.containsFrog = frogType;
         this.coordinates[0] = row;
-        this.coordinates[1] = coulmn;
+        this.coordinates[1] = column;
+
         if(frogType == 1)
         {
-            displayImage.setImage(new Image("GreenFrog.png"));
+            changeIcon("GreenFrog.png");
         }
         else if(frogType == 2)
         {
-            displayImage.setImage(new Image("RedFrog.png"));
+            changeIcon("RedFrog.png");
         }
 
         button = new JButton(displayImage);
-        win.add(button);
+        win.add(button/*, this.coordinates[0], this.coordinates[1]*/);
     }
 
     /**
@@ -44,20 +42,26 @@ public class Square
      * @param lilypad Boolean on whether the square contains a lilypad
      */
 
-    Square(int row, int column, boolean lilypad)
+    Square(JPanel win, int row, int column, boolean lilypad)
     {
+        this.win = win;
         this.containsLilypad = lilypad;
         this.containsFrog = 0;
-        this.coordinates[0] = position[0];
-        this.coordinates[1] = position[1];
+        this.coordinates[0] = row;
+        this.coordinates[1] = column;
         if(lilypad)
         {
-            displayImage.setImage(new Image("Lilypad.png"));
+            changeIcon("Lilypad.png");
         }
         else
         {
-            displayImage.setImage(new Image("Water.png"));
+            changeIcon("Water.png");
         }
+    }
+
+    private void changeIcon(String path)
+    {
+        displayImage.setImage(new ImageIcon("path").getImage());
     }
 
     /**
@@ -92,11 +96,11 @@ public class Square
         this.containsFrog = frogType;
         if(frogType == 1)
         {
-            displayImage.setImage(new Image("GreenFrog.png"));
+            changeIcon("GreenFrog.png");
         }
         else if(frogType == 2)
         {
-            displayImage.setImage(new Image("RedFrog.png"));
+            changeIcon("RedFrog.png");
         }
     }
 }
