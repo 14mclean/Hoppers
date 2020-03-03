@@ -9,12 +9,6 @@ public class Square
     private JPanel win;
     private JButton button;
 
-    /**
-     * 
-     * @param position Coordinates on 5x5 grid in which the square is positoned (0-4)
-     * @param frogType If =0: no frog, if =1: green frog, if =2: red frog
-     */
-
     Square(JPanel win, int row, int column, int frogType)
     {
         this.win = win;
@@ -35,12 +29,6 @@ public class Square
         button = new JButton(displayImage);
         win.add(button/*, this.coordinates[0], this.coordinates[1]*/);
     }
-
-    /**
-     * 
-     * @param position Coordinates on 5x5 grid in which the square is positoned (0-4)
-     * @param lilypad Boolean on whether the square contains a lilypad
-     */
 
     Square(JPanel win, int row, int column, boolean lilypad)
     {
@@ -64,20 +52,10 @@ public class Square
         displayImage.setImage(new ImageIcon("path").getImage());
     }
 
-    /**
-     * Acessor method for whether the square contains a lilypad
-     * @return boolean on whether the square contains a lilypad
-     */
-
     boolean hasLilypad()
     {
         return this.containsLilypad;
     }
-
-    /**
-     * Acessor method for whether the square contains a frog
-     * @return whether the square has a frog on it
-     */
 
     int hasFrog()
     {
