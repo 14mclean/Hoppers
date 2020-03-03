@@ -1,12 +1,15 @@
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import hoppers.*;
 
-class Square
+public class Square
 {
     private ImageIcon displayImage = new ImageIcon();
     private boolean containsLilypad;
     private int containsFrog;
     private int[] coordinates = new int[2];
+    private JFrame win;
     private JButton button;
 
     /**
@@ -15,8 +18,9 @@ class Square
      * @param frogType If =0: no frog, if =1: green frog, if =2: red frog
      */
 
-    Square(int row, int column, int frogType)
+    Square(JFrame win, int row, int column, int frogType)
     {
+        this.win = win;
         this.containsLilypad = true;
         this.containsFrog = frogType;
         this.coordinates[0] = row;
@@ -31,6 +35,7 @@ class Square
         }
 
         button = new JButton(displayImage);
+        win.add(button);
     }
 
     /**

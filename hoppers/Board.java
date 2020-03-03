@@ -1,10 +1,13 @@
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.*;
+import javax.swing.*;
+import hoppers.*;
 
-class Board
+public class Board
 {
-    private Dictionary<int[], Square> grid = new Hashtable<ArrayList<Integer>, Square>();
+    private Dictionary<int[], Square> grid = new Hashtable<int[], Square>();
+    private JFrame win = new JFrame(new GridLayout());
+    //private JPanel panel = new JPanel(new GridLayout());
+
 
     Board()
     {
@@ -17,6 +20,8 @@ class Board
         4,4
         Red frog - 2,4
         */
+
+        win.setSize(500, 500);
 
         int[] tempArray = {0,0};
 
@@ -39,6 +44,8 @@ class Board
                 }
             }
         }
+
+        win.setVisble(true);
     }
 
     /**
