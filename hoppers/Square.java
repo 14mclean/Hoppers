@@ -53,9 +53,14 @@ public class Square
         this.panel.add(button);
     }
 
-    private void changeIcon(String path)
+    void changeIcon(String path)
     {
         button.setIcon(new ImageIcon(path));
+    }
+
+    void actionListener(Board instance)
+    {
+        this.button.addActionListener(instance);
     }
 
     boolean hasLilypad()

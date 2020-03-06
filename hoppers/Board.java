@@ -1,11 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class Board
+public class Board implements ActionListener
 {
     private Square[][] grid = new Square[5][5];
     private JFrame win = new JFrame("Hoppers");
     private JPanel panel = new JPanel(new GridLayout(5,5));
+    private boolean pressed = false;
+    private int[] startPosition = new int[2], endPosition = new int[2];
 
     Board()
     {
@@ -40,6 +43,7 @@ public class Board
                 {
                     grid[row][column] = new Square(panel, row, column, 1);
                 }
+                grid[row][column].actionListener(this);
             }
         }
 
@@ -47,7 +51,55 @@ public class Board
         win.setVisible(true);
     }
 
-    void moveFromTo(int[] startPosition, int[] endPosition)
+    public void actionPerformed(ActionEvent e)
+    {
+        Object source = e.getSource();
+
+        for(int count = 0; count < 5; count++)
+        {
+            for(int count2 = 0; count<5; count++)
+            {
+                if(grid[count][count2] == source)
+                {
+                    Square currentSquare = grid[count][count2];
+                    if(currentSquare.hasFrog() > 0)
+                    {
+                        if(!pressed)
+                        {
+                            pressed = true;
+                            startPosition[0] = count;
+                            startPosition[1] = count2;
+                            if(currentSquare.hasFrog() == 1)
+                            {
+                                currentSquare.changeIcon("GreenFrog2.png");
+                            }
+                            else if(currentSquare.hasFrog() == 2)
+                            {
+                                currentSquare.changeIcon("RedFrog2.png");
+                            }
+                        }
+                        else
+                        {
+                            pressed = false;
+                            endPosition[0] = count;
+                            endPosition[1] = count2;
+                            moveFromTo();
+                            if(currentSquare.hasFrog() == 1)
+                            {
+                                currentSquare.changeIcon("GreenFrog.png");
+                            }
+                            else if(currentSquare.hasFrog() == 2)
+                            {
+                                currentSquare.changeIcon("RedFrog.png");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void moveFromTo()
     {
         Square startSquare = grid[startPosition[0]][startPosition[1]];
         Square endSquare = grid[endPosition[0]][endPosition[1]];
