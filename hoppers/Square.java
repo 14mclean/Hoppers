@@ -2,16 +2,15 @@ import javax.swing.*;
 
 public class Square
 {
-    private ImageIcon displayImage;
     private boolean containsLilypad;
     private int containsFrog;
     private int[] coordinates = new int[2];
-    private JPanel win;
-    private JButton button;
+    private JPanel panel;
+    private JButton button = new JButton();
 
-    Square(JPanel win, int row, int column, int frogType)
+    Square(JPanel panel, int row, int column, int frogType)
     {
-        this.win = win;
+        this.panel = panel;
         this.containsLilypad = true;
         this.containsFrog = frogType;
         this.coordinates[0] = row;
@@ -19,37 +18,44 @@ public class Square
 
         if(frogType == 1)
         {
-            changeIcon("GreenFrog.png");
+            //changeIcon("GreenFrog.png");
+            button.setIcon( new ImageIcon("GreenFrog.png"));
+            button.setPressedIcon( new ImageIcon("GreenFrog2.png"));
         }
         else if(frogType == 2)
         {
-            changeIcon("RedFrog.png");
+            //changeIcon("RedFrog.png");
+            button.setIcon( new ImageIcon("RedFrog.png"));
+            button.setPressedIcon( new ImageIcon("RedFrog2.png"));
         }
 
-        button = new JButton(displayImage);
-        win.add(button/*, this.coordinates[0], this.coordinates[1]*/);
+        this.panel.add(button);
     }
 
-    Square(JPanel win, int row, int column, boolean lilypad)
+    Square(JPanel panel, int row, int column, boolean lilypad)
     {
-        this.win = win;
+        this.panel = panel;
         this.containsLilypad = lilypad;
         this.containsFrog = 0;
         this.coordinates[0] = row;
         this.coordinates[1] = column;
+
         if(lilypad)
         {
-            changeIcon("Lilypad.png");
+            //changeIcon("Lilypad.png");
+            button.setIcon( new ImageIcon("Lilypad.png"));
         }
         else
         {
-            changeIcon("Water.png");
+            //changeIcon("Water.png");
+            button.setIcon( new ImageIcon("Water.png"));
         }
+        this.panel.add(button);
     }
 
     private void changeIcon(String path)
     {
-        displayImage.setImage(new ImageIcon("path").getImage());
+        button.setIcon(new ImageIcon(path));
     }
 
     boolean hasLilypad()

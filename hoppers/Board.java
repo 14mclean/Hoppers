@@ -1,16 +1,15 @@
-import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class Board
 {
-    private Dictionary<int[], Square> grid = new Hashtable<int[], Square>();
+    private Square[][] grid = new Square[5][5];
     private JFrame win = new JFrame("Hoppers");
     private JPanel panel = new JPanel(new GridLayout(5,5));
 
-
     Board()
     {
+        win.add(panel);
         /*
         Green frog places-
         1,1
@@ -21,42 +20,37 @@ public class Board
         Red frog - 2,4
         */
 
-        int[] tempArray = {0,0};
-
-        for(int row = 0; row < Math.sqrt(grid.size()); row++, tempArray[0]++)
+        for(int row = 0; row < 5; row++)
         {
-            for(int column = 0; column < Math.sqrt(grid.size()); column++, tempArray[1]++)
+            for(int column = 0; column < 5; column++)
             {
-
-                if(row == 4 && column == 2)
+                if(row%2 != column%2)
                 {
-                    grid.put(tempArray, new Square(panel, row, column, 2));
+                    grid[row][column] = new Square(panel, row, column, false);
                 }
-                else if(row + column == 4 || row == column)
+                else if(row == 0 || row == 3 || (row == 2 && column == 0 || column == 4))
                 {
-                    grid.put(tempArray, new Square(panel, row, column, true));
+                    grid[row][column] = new Square(panel, row, column, true);
+                }
+                else if(row == 4 && column == 2)
+                {
+                    grid[row][column] = new Square(panel, row, column, 2);
                 }
                 else
                 {
-                    grid.put(tempArray, new Square(panel, row, column, false));
+                    grid[row][column] = new Square(panel, row, column, 1);
                 }
             }
         }
 
-        win.setSize(500, 500);
+        win.setSize(750, 750);
         win.setVisible(true);
     }
 
-    /**
-     * Method to move a frog from one square to another, following the rules
-     * @param startPosition coordinates of square where the frog is
-     * @param endPosition coordinates of square where you wish to move the frog too
-     */
-
     void moveFromTo(int[] startPosition, int[] endPosition)
     {
-        Square startSquare = grid.get(startPosition);
-        Square endSquare = grid.get(endPosition);
+        Square startSquare = grid[startPosition[0]][startPosition[1]];
+        Square endSquare = grid[endPosition[0]][endPosition[1]];
 
         if(!startSquare.hasLilypad() || !endSquare.hasLilypad())
         {
@@ -75,9 +69,9 @@ public class Board
         {
             // going horizontally
 
-            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[1] += Math.signum(endPosition[1] - startPosition[1]))
+            for(int y = startPosition[1]; y == endPosition[1]; y += Math.signum(endPosition[1] - startPosition[1]))
             {
-                if(grid.get(tempCoords).hasFrog() > 0)
+                if(grid[startPosition[0]][y].hasFrog() > 0)
                 {
                     return;
                 }
@@ -87,9 +81,9 @@ public class Board
         {
             // going vertically
             
-            for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[0] += Math.signum(endPosition[0] - startPosition[0]))
+            for(int x = startPosition[0]; x == endPosition[0]; x += Math.signum(endPosition[0] - startPosition[0]))
             {
-                if(grid.get(tempCoords).hasFrog() > 0)
+                if(grid[x][startPosition[1]].hasFrog() > 0)
                 {
                     return;
                 }
@@ -101,13 +95,13 @@ public class Board
             
             for(int[] tempCoords = startPosition; tempCoords == endPosition; tempCoords[0] += Math.signum(endPosition[0] - startPosition[0]), tempCoords[1] += Math.signum(endPosition[1] - startPosition[1]))
             {
-                if(grid.get(tempCoords).hasFrog() > 0)
+                if(grid[tempCoords[0]][tempCoords[1]].hasFrog() > 0)
                 {
                     return;
                 }
             }
         }
 
-        grid.get(endPosition).moveTo(grid.get(startPosition).hasFrog());
+        grid[endPosition[0]][endPosition[1]].moveTo(grid[startPosition[0]][startPosition[1]].hasFrog());
     }
 }
