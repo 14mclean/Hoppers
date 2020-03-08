@@ -1,7 +1,10 @@
+import java.util.*;
+
 public class Level
 {
     private int[] redFrogCoords = new int[2];
     private int[][] greenFrogCoords;
+    private List<int[]> greenFrogs = new ArrayList<int[]>();
     private int levelNum;
 
     Level(int levelNum)
@@ -140,7 +143,23 @@ public class Level
                 this.redFrogCoords[1] = 4;
 
                 this.greenFrogCoords = new int[5][2];
-                this.greenFrogCoords[0][0] = 0;
+                this.greenFrogs.add(0, new int[2]);
+                this.greenFrogs.get(0)[0] = 0;
+                this.greenFrogs.get(0)[1] = 4;
+                this.greenFrogs.add(1, new int[2]);
+                this.greenFrogs.get(1)[0] = 1;
+                this.greenFrogs.get(1)[1] = 1;
+                this.greenFrogs.add(2, new int[2]);
+                this.greenFrogs.get(2)[0] = 2;
+                this.greenFrogs.get(2)[1] = 2;
+                this.greenFrogs.add(3, new int[2]);
+                this.greenFrogs.get(3)[0] = 3;
+                this.greenFrogs.get(3)[1] = 1;
+                this.greenFrogs.add(4, new int[2]);
+                this.greenFrogs.get(4)[0] = 4;
+                this.greenFrogs.get(4)[1] = 4;
+
+                /*this.greenFrogCoords[0][0] = 0;
                 this.greenFrogCoords[0][1] = 4;
                 this.greenFrogCoords[1][0] = 1;
                 this.greenFrogCoords[1][1] = 1;
@@ -149,7 +168,7 @@ public class Level
                 this.greenFrogCoords[3][0] = 3;
                 this.greenFrogCoords[3][1] = 1;
                 this.greenFrogCoords[4][0] = 4;
-                this.greenFrogCoords[4][1] = 4;
+                this.greenFrogCoords[4][1] = 4;*/
         }
     }
 
@@ -161,5 +180,10 @@ public class Level
     int[][] getGreenFrogCoords()
     {
         return greenFrogCoords;
+    }
+
+    List<int[]> getGreenFrogs()
+    {
+        return this.greenFrogs;
     }
 }
