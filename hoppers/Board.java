@@ -9,41 +9,23 @@ public class Board implements ActionListener
     private JPanel panel = new JPanel(new GridLayout(5,5));
     private boolean pressed = false;
     private int[] startPosition = new int[2], endPosition = new int[2];
+    private int levelNum = 22;
+    private Level currentLevel;
 
     Board()
     {
         win.add(panel);
-        /*
-        Green frog places-
-        1,1
-        3,1
-        2,2
-        0,4
-        4,4
-        Red frog - 2,4
-        */
 
-        for(int row = 0; row < 5; row++)
+        currentLevel = new Level(levelNum);
+
+        for(int x = 0; x < 5; x++)
         {
-            for(int column = 0; column < 5; column++)
+            for(int y = 0; y < 5; y++)
             {
-                if(row%2 != column%2)
+                if(x%2 != y%2)
                 {
-                    grid[row][column] = new Square(panel, row, column, false);
+                    
                 }
-                else if(row == 0 || row == 3 || (row == 2 && column == 0 || column == 4))
-                {
-                    grid[row][column] = new Square(panel, row, column, true);
-                }
-                else if(row == 4 && column == 2)
-                {
-                    grid[row][column] = new Square(panel, row, column, 2);
-                }
-                else
-                {
-                    grid[row][column] = new Square(panel, row, column, 1);
-                }
-                grid[row][column].actionListener(this);
             }
         }
 
