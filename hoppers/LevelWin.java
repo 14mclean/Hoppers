@@ -50,7 +50,7 @@ public class LevelWin implements ActionListener
                 previousButton.setEnabled(true);
             }
 
-            if(currentLevel == 22)
+            if(currentLevel == 40)
             {
                 nextButton.setEnabled(false);
             }
@@ -67,7 +67,7 @@ public class LevelWin implements ActionListener
             currentBoard = new Board(currentLevel);
             levelDisplay.setText("Level: " + currentLevel);
 
-            if(currentLevel == 22)
+            if(currentLevel == 40)
             {
                 nextButton.setEnabled(false);
             }

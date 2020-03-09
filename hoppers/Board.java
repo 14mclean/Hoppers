@@ -27,10 +27,6 @@ public class Board implements ActionListener
                 }
                 else if(listContainsList(currentLevel.getGreenFrogs(), tempCoords))
                 {
-                    if(currentLevel.getLevelNumber() > 10)
-                    {
-                        System.out.println("Green frog");
-                    }
                     grid[tempCoords[0]][tempCoords[1]] = new Square(gamePanel, tempCoords[0], tempCoords[1], 1, this);
                 }
                 else if(tempCoords[0]%2 != tempCoords[1]%2)
@@ -111,7 +107,6 @@ public class Board implements ActionListener
 
         if(startSquare.getCoordinates()[0] == endSquare.getCoordinates()[0] && startSquare.getCoordinates()[1] == endSquare.getCoordinates()[1])
         {
-            System.out.println("Erm?");
             pressed = false;
             startSquare.switchIcon();
             return;
@@ -121,7 +116,7 @@ public class Board implements ActionListener
         {
             if(Math.abs(endPosition[1]-startPosition[1]) == 4)
             {
-                if(grid[startPosition[0]][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])*2].hasFrog() > 0)
+                if(grid[startPosition[0]][startPosition[1] + (endPosition[1] - startPosition[1])/2].hasFrog() > 0)
                 {
                     moveFrog(grid[startPosition[0]][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])*2], endSquare);
                     checkWinner();
@@ -132,7 +127,7 @@ public class Board implements ActionListener
         {
             if(Math.abs(endPosition[0]-startPosition[0]) == 4)
             {
-                if(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1]*2].hasFrog() > 0)
+                if(grid[startPosition[0] + (endPosition[0] - startPosition[0])/2][startPosition[1]].hasFrog() > 0)
                 {
                     moveFrog(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])*2][startPosition[1]], endSquare);
                     checkWinner();
