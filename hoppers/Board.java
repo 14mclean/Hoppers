@@ -12,7 +12,7 @@ public class Board implements ActionListener
     private int[] startPosition = new int[2], endPosition = new int[2];
     private int currentLevel;
     private Square startSquare;
-    private Level[] levels = new Level[11];
+    private Level[] levels = new Level[22];
 
     Board(int levelNum)
     {

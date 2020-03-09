@@ -16,6 +16,7 @@ public class LevelWin implements ActionListener
         levelDisplay.setText("Level: " + currentLevel);
 
         previousButton.addActionListener(this);
+        previousButton.setEnabled(false);
         nextButton.addActionListener(this);
 
         decisionWin.setLayout(new FlowLayout());
@@ -39,6 +40,24 @@ public class LevelWin implements ActionListener
             currentLevel--;
             currentBoard = new Board(currentLevel);
             levelDisplay.setText("Level: " + currentLevel);
+
+            if(currentLevel == 1)
+            {
+                previousButton.setEnabled(false);
+            }
+            else
+            {
+                previousButton.setEnabled(true);
+            }
+
+            if(currentLevel == 22)
+            {
+                nextButton.setEnabled(false);
+            }
+            else
+            {
+                nextButton.setEnabled(true);
+            }
         }
         else if(source.hashCode() == nextButton.hashCode())
         {
@@ -47,6 +66,24 @@ public class LevelWin implements ActionListener
             currentLevel++;
             currentBoard = new Board(currentLevel);
             levelDisplay.setText("Level: " + currentLevel);
+
+            if(currentLevel == 22)
+            {
+                nextButton.setEnabled(false);
+            }
+            else
+            {
+                nextButton.setEnabled(true);
+            }
+
+            if(currentLevel == 1)
+            {
+                previousButton.setEnabled(false);
+            }
+            else
+            {
+                previousButton.setEnabled(true);
+            }
         }
     }
 }
