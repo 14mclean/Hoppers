@@ -3,7 +3,6 @@ import java.util.*;
 public class Level
 {
     private int[] redFrogCoords = new int[2];
-    private int[][] greenFrogCoords;
     private List<int[]> greenFrogs = new ArrayList<int[]>();
     private int levelNum;
 
@@ -26,7 +25,6 @@ public class Level
                 this.redFrogCoords[0] = 0;
                 this.redFrogCoords[1] = 0;
 
-                this.greenFrogCoords = new int[1][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 1;
                 this.greenFrogs.get(0)[1] = 1;
@@ -35,7 +33,6 @@ public class Level
                 this.redFrogCoords[0] = 4;
                 this.redFrogCoords[1] = 0;
 
-                this.greenFrogCoords = new int[1][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 4;
                 this.greenFrogs.get(0)[1] = 2;
@@ -44,7 +41,6 @@ public class Level
                 this.redFrogCoords[0] = 2;
                 this.redFrogCoords[1] = 2;
 
-                this.greenFrogCoords = new int[1][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 3;
                 this.greenFrogs.get(0)[1] = 1;
@@ -53,7 +49,6 @@ public class Level
                 this.redFrogCoords[0] = 0;
                 this.redFrogCoords[1] = 0;
 
-                this.greenFrogCoords = new int[2][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 1;
                 this.greenFrogs.get(0)[1] = 1;
@@ -65,7 +60,6 @@ public class Level
                 this.redFrogCoords[0] = 0;
                 this.redFrogCoords[1] = 4;
 
-                this.greenFrogCoords = new int[2][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 0;
                 this.greenFrogs.get(0)[1] = 2;
@@ -77,7 +71,6 @@ public class Level
                 this.redFrogCoords[0] = 4;
                 this.redFrogCoords[1] = 2;
 
-                this.greenFrogCoords = new int[3][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 1;
                 this.greenFrogs.get(0)[1] = 3;
@@ -92,7 +85,6 @@ public class Level
                 this.redFrogCoords[0] = 4;
                 this.redFrogCoords[1] = 0;
 
-                this.greenFrogCoords = new int[4][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 0;
                 this.greenFrogs.get(0)[1] = 2;
@@ -110,7 +102,6 @@ public class Level
                 this.redFrogCoords[0] = 2;
                 this.redFrogCoords[1] = 0;
 
-                this.greenFrogCoords = new int[4][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 1;
                 this.greenFrogs.get(0)[1] = 1;
@@ -128,7 +119,6 @@ public class Level
                 this.redFrogCoords[0] = 2;
                 this.redFrogCoords[1] = 2;
 
-                this.greenFrogCoords = new int[5][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 1;
                 this.greenFrogs.get(0)[1] = 1;
@@ -149,7 +139,6 @@ public class Level
                 this.redFrogCoords[0] = 4;
                 this.redFrogCoords[1] = 4;
 
-                this.greenFrogCoords = new int[5][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 0;
                 this.greenFrogs.get(0)[1] = 2;
@@ -170,7 +159,6 @@ public class Level
                 this.redFrogCoords[0] = 0;
                 this.redFrogCoords[1] = 0;
 
-                this.greenFrogCoords = new int[2][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 2;
                 this.greenFrogs.get(0)[1] = 2;
@@ -182,7 +170,6 @@ public class Level
                 this.redFrogCoords[0] = 0;
                 this.redFrogCoords[1] = 4;
 
-                this.greenFrogCoords = new int[2][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 2;
                 this.greenFrogs.get(0)[1] = 2;
@@ -194,7 +181,6 @@ public class Level
                 this.redFrogCoords[0] = 4;
                 this.redFrogCoords[1] = 0;
 
-                this.greenFrogCoords = new int[3][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 1;
                 this.greenFrogs.get(0)[1] = 1;
@@ -209,7 +195,6 @@ public class Level
                 this.redFrogCoords[0] = 2;
                 this.redFrogCoords[1] = 4;
 
-                this.greenFrogCoords = new int[5][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 0;
                 this.greenFrogs.get(0)[1] = 2;
@@ -230,7 +215,6 @@ public class Level
                 this.redFrogCoords[0] = 1;
                 this.redFrogCoords[1] = 3;
 
-                this.greenFrogCoords = new int[4][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 0;
                 this.greenFrogs.get(0)[1] = 0;
@@ -248,7 +232,6 @@ public class Level
                 this.redFrogCoords[0] = 4;
                 this.redFrogCoords[1] = 0;
 
-                this.greenFrogCoords = new int[2][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 3;
                 this.greenFrogs.get(0)[1] = 1;
@@ -260,7 +243,6 @@ public class Level
                 this.redFrogCoords[0] = 2;
                 this.redFrogCoords[1] = 0;
 
-                this.greenFrogCoords = new int[4][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 1;
                 this.greenFrogs.get(0)[1] = 3;
@@ -278,7 +260,6 @@ public class Level
                 this.redFrogCoords[0] = 2;
                 this.redFrogCoords[1] = 4;
 
-                this.greenFrogCoords = new int[6][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 0;
                 this.greenFrogs.get(0)[1] = 2;
@@ -302,7 +283,6 @@ public class Level
                 this.redFrogCoords[0] = 0;
                 this.redFrogCoords[1] = 2;
 
-                this.greenFrogCoords = new int[6][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 0;
                 this.greenFrogs.get(0)[1] = 0;
@@ -326,7 +306,6 @@ public class Level
                 this.redFrogCoords[0] = 1;
                 this.redFrogCoords[1] = 3;
 
-                this.greenFrogCoords = new int[6][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 1;
                 this.greenFrogs.get(0)[1] = 1;
@@ -350,7 +329,6 @@ public class Level
                 this.redFrogCoords[0] = 3;
                 this.redFrogCoords[1] = 1;
 
-                this.greenFrogCoords = new int[5][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 0;
                 this.greenFrogs.get(0)[1] = 0;
@@ -371,7 +349,6 @@ public class Level
                 this.redFrogCoords[0] = 2;
                 this.redFrogCoords[1] = 4;
 
-                this.greenFrogCoords = new int[5][2];
                 this.greenFrogs.add(0, new int[2]);
                 this.greenFrogs.get(0)[0] = 0;
                 this.greenFrogs.get(0)[1] = 4;
@@ -393,11 +370,6 @@ public class Level
     int[] getRedFrogCoords()
     {
         return redFrogCoords;
-    }
-
-    int[][] getGreenFrogCoords()
-    {
-        return greenFrogCoords;
     }
 
     List<int[]> getGreenFrogs()
