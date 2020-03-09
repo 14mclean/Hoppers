@@ -82,15 +82,10 @@ public class Board implements ActionListener
 
         if(!pressed)
         {
-           if(pressedSquare.hasFrog() == 1)
+           if(pressedSquare.hasFrog() > 0)
            {
             startPosition = pressedSquare.getCoordinates();
-            pressedSquare.switchIcon();
-            pressed = true;
-           }
-           else
-           {
-            startPosition = pressedSquare.getCoordinates();
+            startSquare = pressedSquare;
             pressedSquare.switchIcon();
             pressed = true;
            }
@@ -106,10 +101,11 @@ public class Board implements ActionListener
             return;
         }
 
-        if(startPosition[0] == endPosition[0] && startPosition[1] == endPosition[1])
+        if(startSquare.getCoordinates()[0] == endSquare.getCoordinates()[0] && startSquare.getCoordinates()[1] == endSquare.getCoordinates()[1])
         {
+            System.out.println("Erm?");
             pressed = false;
-            endSquare.switchIcon();
+            startSquare.switchIcon();
             return;
         }
 
@@ -119,7 +115,11 @@ public class Board implements ActionListener
             {
                 if(grid[startPosition[0]][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])*2].hasFrog() > 0)
                 {
-                    moveFrog(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1]], endSquare);
+                    moveFrog(grid[startPosition[0]][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])*2], endSquare);
+                    if(checkWinner())
+                    {
+                        System.out.println("Winner!");
+                    }
                 }
             }
         }
@@ -129,20 +129,60 @@ public class Board implements ActionListener
             {
                 if(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1]*2].hasFrog() > 0)
                 {
-                    moveFrog(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1]], endSquare);
+                    moveFrog(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])*2][startPosition[1]], endSquare);
+                    if(checkWinner())
+                    {
+                        System.out.println("Winner!");
+                    }
                 }
             }
         }
-        else if( Math.abs(endPosition[0]-startPosition[0]) == 2 && Math.abs(endPosition[1]-startPosition[1]) == 2)
+        else if(Math.abs(endPosition[0]-startPosition[0]) == Math.abs(endPosition[1]-startPosition[1]))
         {
-            System.out.println("Going Diagonally");
+            if(Math.abs(endPosition[0]-startPosition[0]) == 2 && Math.abs(endPosition[1]-startPosition[1]) == 2)
+            {
+                if(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])].hasFrog() > 0)
+                {
+                    moveFrog(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])], endSquare);
+                    if(checkWinner())
+                    {
+                        System.out.println("Winner!");
+                    }
+                }
+            }
         }
     }
 
     private void moveFrog(Square takenSquare, Square endSquare)
     {
-        takenSquare.taken();
         startSquare.moveTo(endSquare);
+        takenSquare.taken();
         pressed = false;
+    }
+
+    private boolean checkWinner()
+    {
+        int greenFrogs = 0;
+        boolean redFrog = false;
+        for(int x = 0; x < 5; x++)
+        {
+            for(int y = 0; y < 5; y++)
+            {
+                if(grid[x][y].hasFrog() == 1)
+                {
+                    greenFrogs++;
+                }
+                else if(grid[x][y].hasFrog() == 2)
+                {
+                    redFrog = true;
+                }
+            }
+        }
+
+        if(greenFrogs == 0 && redFrog)
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -94,7 +94,11 @@ public class Square
     void setFrog(int frogType)
     {
         this.containsFrog = frogType;
-        if(this.containsFrog == 1)
+        if(this.containsFrog == 0)
+        {
+            changeIcon("LilyPad.png");
+        }
+        else if(this.containsFrog == 1)
         {
             changeIcon("GreenFrog.png");
         }
@@ -107,8 +111,7 @@ public class Square
     void moveTo(Square endSquare)
     {
         endSquare.setFrog(this.containsFrog);
-        this.containsFrog = 0;
-        this.changeIcon("LilyPad.png");
+        this.setFrog(0);
     }
 
     int[] getCoordinates()
