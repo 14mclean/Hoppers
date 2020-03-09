@@ -29,7 +29,7 @@ public class Board implements ActionListener
                 {
                     if(currentLevel.getLevelNumber() > 10)
                     {
-                        System.out.println(tempCoords[0] + ", " + tempCoords[1]);
+                        System.out.println("Green frog");
                     }
                     grid[tempCoords[0]][tempCoords[1]] = new Square(gamePanel, tempCoords[0], tempCoords[1], 1, this);
                 }

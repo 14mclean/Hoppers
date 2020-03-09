@@ -14,7 +14,7 @@ public class Level
 
     private void createLevel()
     {
-        if((this.levelNum < 1 || this.levelNum > 10) && this.levelNum != 22)
+        if(this.levelNum < 1 || this.levelNum > 22)
         {
             return;
         }
