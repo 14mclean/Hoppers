@@ -14,7 +14,7 @@ public class LevelWin implements ActionListener
     LevelWin()
     {
         levelDisplay.setText("Level: " + currentLevel);
-        
+
         previousButton.addActionListener(this);
         nextButton.addActionListener(this);
 
@@ -34,14 +34,18 @@ public class LevelWin implements ActionListener
 
         if(source.hashCode() == previousButton.hashCode())
         {
+            currentBoard.close();
             currentBoard = null;
-            currentBoard = new Board(currentLevel-1);
+            currentLevel--;
+            currentBoard = new Board(currentLevel);
             levelDisplay.setText("Level: " + currentLevel);
         }
         else if(source.hashCode() == nextButton.hashCode())
         {
+            currentBoard.close();
             currentBoard = null;
-            currentBoard = new Board(currentLevel+1);
+            currentLevel++;
+            currentBoard = new Board(currentLevel);
             levelDisplay.setText("Level: " + currentLevel);
         }
     }
