@@ -91,24 +91,24 @@ public class Square
         return containsFrog;
     }
 
-    int move()
-    {
-        int temp = this.containsFrog;
-        this.containsFrog = 0;
-        return temp;
-    }
-
-    void movedTo(int frogType)
+    void setFrog(int frogType)
     {
         this.containsFrog = frogType;
-        if(frogType == 1)
+        if(this.containsFrog == 1)
         {
             changeIcon("GreenFrog.png");
         }
-        else if(frogType == 2)
+        else if(this.containsFrog == 2)
         {
             changeIcon("RedFrog.png");
         }
+    }
+
+    void moveTo(Square endSquare)
+    {
+        endSquare.setFrog(this.containsFrog);
+        this.containsFrog = 0;
+        this.changeIcon("LilyPad.png");
     }
 
     int[] getCoordinates()

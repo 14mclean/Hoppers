@@ -117,7 +117,6 @@ public class Board implements ActionListener
         {
             if(Math.abs(endPosition[1]-startPosition[1]) == 4)
             {
-                System.out.println(grid[startPosition[0]][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])*2].hasFrog());
                 if(grid[startPosition[0]][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])*2].hasFrog() > 0)
                 {
                     moveFrog(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1]], endSquare);
@@ -138,17 +137,12 @@ public class Board implements ActionListener
         {
             System.out.println("Going Diagonally");
         }
-        else
-        {
-            System.out.println("No Direction, " + startPosition[0] + endPosition[0]);
-        }
     }
 
     private void moveFrog(Square takenSquare, Square endSquare)
     {
         takenSquare.taken();
-        endSquare.movedTo(startSquare.move());
+        startSquare.moveTo(endSquare);
         pressed = false;
-        startSquare.switchIcon();
     }
 }
