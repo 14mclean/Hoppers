@@ -8,8 +8,10 @@ public class LevelWin implements ActionListener
     private JButton previousButton = new JButton("<");
     private JButton nextButton = new JButton(">");
     private JLabel levelDisplay = new JLabel();
-    private int currentLevel = 1;
-    private Board currentBoard = new Board(1);
+    private int currentLevel = 0;
+    private Board currentBoard;
+    private long startNanoTime;
+    private long endNanoTime;
     
     LevelWin()
     {
@@ -61,13 +63,30 @@ public class LevelWin implements ActionListener
         }
         else if(source.hashCode() == nextButton.hashCode())
         {
+            if(currentLevel == 0)
+            {
+                currentBoard = new Board(1);
+                startNanoTime = System.nanoTime();
+                currentLevel++;
+                levelDisplay.setText("Level: " + currentLevel);
+                return;
+            }
+            if(currentLevel == 40)
+            {
+                endNanoTime = System.nanoTime();
+                currentBoard.close();
+                currentBoard = null;
+                levelDisplay.setText("Level: " + currentLevel);
+                JOptionPane.showMessageDialog(decisionWin, "Total time taken for 40 levels: " + (double) (endNanoTime-startNanoTime)/1000000000.00 + "s", "Time Taken", JOptionPane.INFORMATION_MESSAGE);
+
+            }
             currentBoard.close();
             currentBoard = null;
             currentLevel++;
             currentBoard = new Board(currentLevel);
             levelDisplay.setText("Level: " + currentLevel);
 
-            if(currentLevel == 40)
+            if(currentLevel == 41)
             {
                 nextButton.setEnabled(false);
             }
