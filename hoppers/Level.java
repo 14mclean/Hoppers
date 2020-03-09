@@ -85,7 +85,7 @@ public class Level
                 this.greenFrogs.get(1)[0] = 2;
                 this.greenFrogs.get(1)[1] = 2;
                 this.greenFrogs.add(2, new int[2]);
-                this.greenFrogs.get(2)[0] = 4;
+                this.greenFrogs.get(2)[0] = 3;
                 this.greenFrogs.get(2)[1] = 3;
                 break;
             case 7:

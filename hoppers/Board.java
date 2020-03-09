@@ -10,27 +10,22 @@ public class Board implements ActionListener
     private JPanel gamePanel = new JPanel(new GridLayout(5,5));
     private boolean pressed = false;
     private int[] startPosition = new int[2], endPosition = new int[2];
-    private int currentLevel;
+    private Level currentLevel;
     private Square startSquare;
-    private Level[] levels = new Level[22];
 
     Board(int levelNum)
     {
-        this.currentLevel = levelNum;
-        for(int count = 0; count < levels.length -1; count++)
-        {
-            levels[count] = new Level(count+1);
-        }
+        currentLevel = new Level(levelNum);
 
         for(int[] tempCoords = {0,0}; tempCoords[1] < 5; tempCoords[1]++)
         {
             for(; tempCoords[0] < 5; tempCoords[0]++)
             {
-                if( (levels[currentLevel].getRedFrogCoords()[0] == tempCoords[0]) && (levels[currentLevel].getRedFrogCoords()[1] == tempCoords[1]) ) 
+                if( (currentLevel.getRedFrogCoords()[0] == tempCoords[0]) && (currentLevel.getRedFrogCoords()[1] == tempCoords[1]) ) 
                 {
                     grid[tempCoords[0]][tempCoords[1]] = new Square(gamePanel, tempCoords[0], tempCoords[1], 2, this);
                 }
-                else if(listContainsList(levels[currentLevel].getGreenFrogs(), tempCoords))
+                else if(listContainsList(currentLevel.getGreenFrogs(), tempCoords))
                 {
                     grid[tempCoords[0]][tempCoords[1]] = new Square(gamePanel, tempCoords[0], tempCoords[1], 1, this);
                 }
