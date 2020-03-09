@@ -2,6 +2,6 @@ public class HoppersLauncher
 {
     public static void main(String[] args)
     {
-        new Board();
+        new LevelWin();
     }
 }

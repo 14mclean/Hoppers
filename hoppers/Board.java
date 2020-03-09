@@ -7,55 +7,45 @@ public class Board implements ActionListener
 {
     private Square[][] grid = new Square[5][5];
     private JFrame win = new JFrame("Hoppers");
-    private JPanel mainPanel = new JPanel(new GridLayout(2,1));
-    private JPanel topPanel = new JPanel(new GridLayout(1,3));
-    private JButton[] navButtons = new JButton[2];
-    private JLabel levelDisplay = new JLabel();
-    private JPanel bottomPanel = new JPanel(new GridLayout(5,5));
+    private JPanel gamePanel = new JPanel(new GridLayout(5,5));
     private boolean pressed = false;
     private int[] startPosition = new int[2], endPosition = new int[2];
-    private Level currentLevel;
+    private int currentLevel;
     private Square startSquare;
+    private Level[] levels = new Level[11];
 
-    Board()
+    Board(int levelNum)
     {
-        currentLevel = new Level(22);
-        
-        navButtons[0] = new JButton("<");
-        navButtons[1] = new JButton(">");
-        levelDisplay.setText("Level " + currentLevel.getLevelNumber());
-
-        win.add(mainPanel);
-        mainPanel.add(topPanel);
-        mainPanel.add(bottomPanel);
-        topPanel.add(navButtons[0]);
-        topPanel.add(levelDisplay);
-        topPanel.add(navButtons[1]);
+        this.currentLevel = levelNum;
+        for(int count = 0; count < levels.length -1; count++)
+        {
+            levels[count] = new Level(count+1);
+        }
 
         for(int[] tempCoords = {0,0}; tempCoords[1] < 5; tempCoords[1]++)
         {
             for(; tempCoords[0] < 5; tempCoords[0]++)
             {
-                if( (currentLevel.getRedFrogCoords()[0] == tempCoords[0]) && (currentLevel.getRedFrogCoords()[1] == tempCoords[1]) ) 
+                if( (levels[currentLevel].getRedFrogCoords()[0] == tempCoords[0]) && (levels[currentLevel].getRedFrogCoords()[1] == tempCoords[1]) ) 
                 {
-                    grid[tempCoords[0]][tempCoords[1]] = new Square(bottomPanel, tempCoords[0], tempCoords[1], 2, this);
+                    grid[tempCoords[0]][tempCoords[1]] = new Square(gamePanel, tempCoords[0], tempCoords[1], 2, this);
                 }
-                else if(listContainsList(currentLevel.getGreenFrogs(), tempCoords))
+                else if(listContainsList(levels[currentLevel].getGreenFrogs(), tempCoords))
                 {
-                    grid[tempCoords[0]][tempCoords[1]] = new Square(bottomPanel, tempCoords[0], tempCoords[1], 1, this);
+                    grid[tempCoords[0]][tempCoords[1]] = new Square(gamePanel, tempCoords[0], tempCoords[1], 1, this);
                 }
                 else if(tempCoords[0]%2 != tempCoords[1]%2)
                 {
-                    grid[tempCoords[0]][tempCoords[1]] = new Square(bottomPanel, tempCoords[0], tempCoords[1], false, this);
+                    grid[tempCoords[0]][tempCoords[1]] = new Square(gamePanel, tempCoords[0], tempCoords[1], false, this);
                 }
                 else
                 {
-                    grid[tempCoords[0]][tempCoords[1]] = new Square(bottomPanel, tempCoords[0], tempCoords[1], true, this);
+                    grid[tempCoords[0]][tempCoords[1]] = new Square(gamePanel, tempCoords[0], tempCoords[1], true, this);
                 }
             }
             tempCoords[0] = 0;
         }
-
+        win.add(gamePanel, BorderLayout.CENTER);
         win.setSize(750, 750);
         win.setVisible(true);
     }
@@ -72,19 +62,16 @@ public class Board implements ActionListener
         return false;
     }
 
+    void close()
+    {
+        win.setVisible(false);
+        win.dispose();
+    }
+
     public void actionPerformed(ActionEvent e)
     {
         Object source = e.getSource();
         Square pressedSquare = null;
-
-        if(source.hashCode() == navButtons[0].hashCode())
-        {
-            return;
-        }
-        else if(source.hashCode() == navButtons[1].hashCode())
-        {
-            return;
-        }
 
         xLoop: for(int x = 0; x < 5; x++)
         {
@@ -138,10 +125,7 @@ public class Board implements ActionListener
                 if(grid[startPosition[0]][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])*2].hasFrog() > 0)
                 {
                     moveFrog(grid[startPosition[0]][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])*2], endSquare);
-                    if(checkWinner())
-                    {
-                        System.out.println("Winner!");
-                    }
+                    checkWinner();
                 }
             }
         }
@@ -152,10 +136,7 @@ public class Board implements ActionListener
                 if(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1]*2].hasFrog() > 0)
                 {
                     moveFrog(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])*2][startPosition[1]], endSquare);
-                    if(checkWinner())
-                    {
-                        System.out.println("Winner!");
-                    }
+                    checkWinner();
                 }
             }
         }
@@ -166,10 +147,7 @@ public class Board implements ActionListener
                 if(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])].hasFrog() > 0)
                 {
                     moveFrog(grid[startPosition[0] + (int) Math.signum(endPosition[0]-startPosition[0])][startPosition[1] + (int) Math.signum(endPosition[1]-startPosition[1])], endSquare);
-                    if(checkWinner())
-                    {
-                        System.out.println("Winner!");
-                    }
+                    checkWinner();
                 }
             }
         }
@@ -182,7 +160,7 @@ public class Board implements ActionListener
         pressed = false;
     }
 
-    private boolean checkWinner()
+    private void checkWinner()
     {
         int greenFrogs = 0;
         boolean redFrog = false;
@@ -201,10 +179,11 @@ public class Board implements ActionListener
             }
         }
 
-        if(greenFrogs == 0 && redFrog)
+        if(greenFrogs > 0 || !redFrog)
         {
-            return true;
+            return;
         }
-        return false;
+
+        JOptionPane.showMessageDialog(win, "Winner!", "Result", JOptionPane.INFORMATION_MESSAGE);
     }
 }
