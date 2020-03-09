@@ -7,7 +7,11 @@ public class Board implements ActionListener
 {
     private Square[][] grid = new Square[5][5];
     private JFrame win = new JFrame("Hoppers");
-    private JPanel panel = new JPanel(new GridLayout(5,5));
+    private JPanel mainPanel = new JPanel(new GridLayout(2,1));
+    private JPanel topPanel = new JPanel(new GridLayout(1,3));
+    private JButton[] navButtons = new JButton[2];
+    private JLabel levelDisplay = new JLabel();
+    private JPanel bottomPanel = new JPanel(new GridLayout(5,5));
     private boolean pressed = false;
     private int[] startPosition = new int[2], endPosition = new int[2];
     private Level currentLevel;
@@ -15,9 +19,18 @@ public class Board implements ActionListener
 
     Board()
     {
-        win.add(panel);
-
         currentLevel = new Level(22);
+        
+        navButtons[0] = new JButton("<");
+        navButtons[1] = new JButton(">");
+        levelDisplay.setText("Level " + currentLevel.getLevelNumber());
+
+        win.add(mainPanel);
+        mainPanel.add(topPanel);
+        mainPanel.add(bottomPanel);
+        topPanel.add(navButtons[0]);
+        topPanel.add(levelDisplay);
+        topPanel.add(navButtons[1]);
 
         for(int[] tempCoords = {0,0}; tempCoords[1] < 5; tempCoords[1]++)
         {
@@ -25,19 +38,19 @@ public class Board implements ActionListener
             {
                 if( (currentLevel.getRedFrogCoords()[0] == tempCoords[0]) && (currentLevel.getRedFrogCoords()[1] == tempCoords[1]) ) 
                 {
-                    grid[tempCoords[0]][tempCoords[1]] = new Square(panel, tempCoords[0], tempCoords[1], 2, this);
+                    grid[tempCoords[0]][tempCoords[1]] = new Square(bottomPanel, tempCoords[0], tempCoords[1], 2, this);
                 }
                 else if(listContainsList(currentLevel.getGreenFrogs(), tempCoords))
                 {
-                    grid[tempCoords[0]][tempCoords[1]] = new Square(panel, tempCoords[0], tempCoords[1], 1, this);
+                    grid[tempCoords[0]][tempCoords[1]] = new Square(bottomPanel, tempCoords[0], tempCoords[1], 1, this);
                 }
                 else if(tempCoords[0]%2 != tempCoords[1]%2)
                 {
-                    grid[tempCoords[0]][tempCoords[1]] = new Square(panel, tempCoords[0], tempCoords[1], false, this);
+                    grid[tempCoords[0]][tempCoords[1]] = new Square(bottomPanel, tempCoords[0], tempCoords[1], false, this);
                 }
                 else
                 {
-                    grid[tempCoords[0]][tempCoords[1]] = new Square(panel, tempCoords[0], tempCoords[1], true, this);
+                    grid[tempCoords[0]][tempCoords[1]] = new Square(bottomPanel, tempCoords[0], tempCoords[1], true, this);
                 }
             }
             tempCoords[0] = 0;
@@ -63,6 +76,15 @@ public class Board implements ActionListener
     {
         Object source = e.getSource();
         Square pressedSquare = null;
+
+        if(source.hashCode() == navButtons[0].hashCode())
+        {
+            return;
+        }
+        else if(source.hashCode() == navButtons[1].hashCode())
+        {
+            return;
+        }
 
         xLoop: for(int x = 0; x < 5; x++)
         {

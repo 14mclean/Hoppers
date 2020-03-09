@@ -186,4 +186,9 @@ public class Level
     {
         return this.greenFrogs;
     }
+
+    int getLevelNumber()
+    {
+        return this.levelNum;
+    }
 }
