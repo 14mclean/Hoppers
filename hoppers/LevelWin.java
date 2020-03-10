@@ -18,14 +18,15 @@ public class LevelWin implements ActionListener
     private Board currentBoard;
     private long startNanoTime;
     private long endNanoTime;
-    private int wins = 0;
+    private boolean[] beatenLevel = new boolean[40];
+    private boolean won = true;
     
     /**
      * Starts Level Decider window on 'level 0' with no game board
      */
     LevelWin()
     {
-        levelDisplay.setText("Level: " + currentLevel);
+        levelDisplay.setText("Start Timer");
 
         previousButton.addActionListener(this);
         previousButton.setEnabled(false);
@@ -40,6 +41,10 @@ public class LevelWin implements ActionListener
         decisionWin.setSize(275, 75);
         decisionWin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         decisionWin.setVisible(true);
+        for(int count = 0; count < 40; count++)
+        {
+            beatenLevel[count] = false;
+        }
     }
 
     /**
@@ -54,47 +59,47 @@ public class LevelWin implements ActionListener
 
         if(source.hashCode() == previousButton.hashCode())
         {
+            if(currentLevel == 2)
+            {
+                previousButton.setEnabled(false);
+            }
+            else if(currentLevel == 41)
+            {
+                for(int count = 0; count < 40; count++)
+                {
+                    beatenLevel[count] = false;
+                }
+                won = true;
+                levelDisplay.setText("Start Timer");
+                previousButton.setEnabled(false);
+                nextButton.setEnabled(true);
+                currentLevel = 0;
+                return;
+            }
             currentBoard.close();
             currentBoard = null;
             currentLevel--;
             currentBoard = new Board(currentLevel);
             levelDisplay.setText("Level: " + currentLevel);
-
-            if(currentLevel == 1)
-            {
-                previousButton.setEnabled(false);
-            }
-            else
-            {
-                previousButton.setEnabled(true);
-            }
-
-            if(currentLevel == 40)
-            {
-                nextButton.setEnabled(false);
-            }
-            else
-            {
-                nextButton.setEnabled(true);
-            }
         }
         else if(source.hashCode() == nextButton.hashCode())
         {
-            if(currentLevel == 0)
-            {
-                currentBoard = new Board(1);
-                startNanoTime = System.nanoTime();
-                currentLevel++;
-                levelDisplay.setText("Start Timer");
-                return;
-            }
             if(currentLevel == 40)
             {
                 endNanoTime = System.nanoTime();
+                currentLevel++;
                 currentBoard.close();
                 currentBoard = null;
+                nextButton.setEnabled(false);
                 levelDisplay.setText("Timer Stopped");
-                if(wins == 40)
+                for(int count = 0; count < beatenLevel.length; count++)
+                {
+                    if(!beatenLevel[count])
+                    {
+                        won = false;
+                    }
+                }
+                if(won)
                 {
                     JOptionPane.showMessageDialog(decisionWin, "Total time taken for 40 levels: " + (double) (endNanoTime-startNanoTime)/1000000000.00 + "s", "Time Taken", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -102,40 +107,32 @@ public class LevelWin implements ActionListener
                 {
                     JOptionPane.showMessageDialog(decisionWin, "Did not complete all 40 levels", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                wins = 0;
-                currentLevel = 0;
             }
-            currentBoard.close();
-            currentBoard = null;
-            currentLevel++;
-            currentBoard = new Board(currentLevel);
-            levelDisplay.setText("Level: " + currentLevel);
-
-            if(currentLevel == 41)
-            {
-                nextButton.setEnabled(false);
-            }
-            else
-            {
-                nextButton.setEnabled(true);
-            }
-
-            if(currentLevel == 1)
-            {
-                previousButton.setEnabled(false);
-            }
-            else
+            else if(currentLevel == 0)
             {
                 previousButton.setEnabled(true);
+                currentLevel++;
+                currentBoard = new Board(currentLevel);
+                levelDisplay.setText("Level: " + currentLevel);
+                startNanoTime = System.nanoTime();
+            }
+            else
+            {
+                currentBoard.close();
+                currentBoard = null;
+                currentLevel++;
+                currentBoard = new Board(currentLevel);
+                levelDisplay.setText("Level: " + currentLevel);
             }
         }
     }
 
     /**
-     * Adds 1 to win total
+     * Sets a level to beaten after completing it
+     * @param levelBeaten the level number that was beaten
      */
-    void addWin()
+    void addWin(int levelBeaten)
     {
-        wins++;
+        beatenLevel[levelBeaten-1] = true;
     }
 }
