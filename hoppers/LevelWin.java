@@ -18,6 +18,7 @@ public class LevelWin implements ActionListener
     private Board currentBoard;
     private long startNanoTime;
     private long endNanoTime;
+    private int wins = 0;
     
     /**
      * Starts Level Decider window on 'level 0' with no game board
@@ -84,7 +85,7 @@ public class LevelWin implements ActionListener
                 currentBoard = new Board(1);
                 startNanoTime = System.nanoTime();
                 currentLevel++;
-                levelDisplay.setText("Level: " + currentLevel);
+                levelDisplay.setText("Start Timer");
                 return;
             }
             if(currentLevel == 40)
@@ -92,9 +93,17 @@ public class LevelWin implements ActionListener
                 endNanoTime = System.nanoTime();
                 currentBoard.close();
                 currentBoard = null;
-                levelDisplay.setText("Level: " + currentLevel);
-                JOptionPane.showMessageDialog(decisionWin, "Total time taken for 40 levels: " + (double) (endNanoTime-startNanoTime)/1000000000.00 + "s", "Time Taken", JOptionPane.INFORMATION_MESSAGE);
-
+                levelDisplay.setText("Timer Stopped");
+                if(wins == 40)
+                {
+                    JOptionPane.showMessageDialog(decisionWin, "Total time taken for 40 levels: " + (double) (endNanoTime-startNanoTime)/1000000000.00 + "s", "Time Taken", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(decisionWin, "Did not complete all 40 levels", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                wins = 0;
+                currentLevel = 0;
             }
             currentBoard.close();
             currentBoard = null;
@@ -120,5 +129,13 @@ public class LevelWin implements ActionListener
                 previousButton.setEnabled(true);
             }
         }
+    }
+
+    /**
+     * Adds 1 to win total
+     */
+    void addWin()
+    {
+        wins++;
     }
 }
