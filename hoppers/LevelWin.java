@@ -121,7 +121,7 @@ public class LevelWin implements ActionListener
             }
             else
             {
-                currentBoard.close();
+                this.currentBoard.close();
                 currentBoard = null;
                 currentLevel++;
                 currentBoard = new Board(currentLevel);
