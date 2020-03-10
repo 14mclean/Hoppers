@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Creates Level Decider window which controls boards and timing
+ * 
+ * @author Mark McLean
+ * @version 1.0
+ */
 public class LevelWin implements ActionListener
 {
     private JFrame decisionWin = new JFrame("Level Decider");
@@ -13,6 +19,9 @@ public class LevelWin implements ActionListener
     private long startNanoTime;
     private long endNanoTime;
     
+    /**
+     * Starts Level Decider window on 'level 0' with no game board
+     */
     LevelWin()
     {
         levelDisplay.setText("Level: " + currentLevel);
@@ -28,9 +37,16 @@ public class LevelWin implements ActionListener
         decisionWin.add(nextButton);
 
         decisionWin.setSize(275, 75);
+        decisionWin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         decisionWin.setVisible(true);
     }
 
+    /**
+     * Method called when a button on Level Decider win pressed. 
+     * Checks which button is pressed and changes level & level number based off this. 
+     * Also disables buttons when at extremes to ensure the user doesnt pass the number of levels or go negative
+     * @param e The ActionEvent that is made when a button is pressed
+     */
     public void actionPerformed(ActionEvent e)
     {
         Object source = e.getSource();

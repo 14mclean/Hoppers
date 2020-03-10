@@ -3,6 +3,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Creates a game window of a level and controls all game mechanics
+ * 
+ * @author Mark McLean
+ * @version 1.0
+ */
 public class Board implements ActionListener
 {
     private Square[][] grid = new Square[5][5];
@@ -13,6 +19,11 @@ public class Board implements ActionListener
     private Level currentLevel;
     private Square startSquare;
 
+    /**
+     * Creates the game board with the correct level layout
+     * 
+     * @param levelNum The level which the user is on
+     */
     Board(int levelNum)
     {
         currentLevel = new Level(levelNum);
@@ -45,6 +56,13 @@ public class Board implements ActionListener
         win.setVisible(true);
     }
 
+    /**
+     * Checks if a list of int arrays contains a specific int array
+     * 
+     * @param list The list which you are searching
+     * @param array The searchee array
+     * @return Boolean: true- found, false- not found
+     */
     private boolean listContainsList(List<int[]> list, int[] array)
     {
         for(int count = 0; count < list.size(); count++)
@@ -57,12 +75,21 @@ public class Board implements ActionListener
         return false;
     }
 
+    /**
+     * Closes current game board
+     */
     void close()
     {
         win.setVisible(false);
         win.dispose();
     }
 
+    /**
+     * Called when one of the sqaures is clicked and checks which one it was.
+     * Ensures all moves follows the rules
+     * 
+     * @param e The ActionEvent that is made when a button is pressed
+     */
     public void actionPerformed(ActionEvent e)
     {
         Object source = e.getSource();
@@ -147,6 +174,12 @@ public class Board implements ActionListener
         }
     }
 
+    /**
+     * Implementation for moving and taking of frogs
+     * 
+     * @param takenSquare The square on which the taken frog resides
+     * @param endSquare The square where the moving frog will end up
+     */
     private void moveFrog(Square takenSquare, Square endSquare)
     {
         startSquare.moveTo(endSquare);
@@ -154,6 +187,9 @@ public class Board implements ActionListener
         pressed = false;
     }
 
+    /**
+     * Checks if the player has taken all of the green frogs and stil has the red frog remaining
+     */
     private void checkWinner()
     {
         int greenFrogs = 0;

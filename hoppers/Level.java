@@ -1,17 +1,29 @@
 import java.util.*;
 
+/**
+ * Contains all the nessecary inforamtion to create a level
+ * 
+ * @author Mark McLean
+ * @version 1.0
+ */
 public class Level
 {
     private int[] redFrogCoords = new int[2];
     private List<int[]> greenFrogs = new ArrayList<int[]>();
     private int levelNum;
 
+    /**
+     * @param levelNum The level number of which the level is to be created. Should be 1-40 otherwise nothing will be created
+     */
     Level(int levelNum)
     {
         this.levelNum = levelNum;
         createLevel();
     }
 
+    /**
+     * Sets positions of red frogs and all greens frogs dependant on the current level
+     */
     private void createLevel()
     {
         if(this.levelNum < 1 || this.levelNum > 40)
@@ -749,16 +761,25 @@ public class Level
         }
     }
 
+    /**
+     * @return Coordinates of the red frog
+     */
     int[] getRedFrogCoords()
     {
         return redFrogCoords;
     }
 
+    /**
+     * @return List of coordinates of green frogs
+     */
     List<int[]> getGreenFrogs()
     {
         return this.greenFrogs;
     }
 
+    /**
+     * @return The level number of the level that has been created
+     */
     int getLevelNumber()
     {
         return this.levelNum;
