@@ -34,11 +34,11 @@ public class Square
 
         if(frogType == 1)
         {
-            changeIcon("GreenFrog.png");
+            changeIcon("./GreenFrog.png");
         }
         else if(frogType == 2)
         {
-            changeIcon("RedFrog.png");
+            changeIcon("./RedFrog.png");
         }
 
         this.panel.add(button);
@@ -63,11 +63,11 @@ public class Square
 
         if(lilypad)
         {
-            button.setIcon( new ImageIcon("Lilypad.png"));
+            button.setIcon( new ImageIcon("./Lilypad.png"));
         }
         else
         {
-            button.setIcon( new ImageIcon("Water.png"));
+            button.setIcon( new ImageIcon("./Water.png"));
         }
         this.panel.add(button);
     }
@@ -77,21 +77,21 @@ public class Square
      */
     void switchIcon()
     {
-        if(this.currentIcon == "GreenFrog.png")
+        if(this.currentIcon == "./GreenFrog.png")
         {
-            changeIcon("GreenFrog2.png");
+            changeIcon("./GreenFrog2.png");
         }
-        else if(this.currentIcon == "GreenFrog2.png")
+        else if(this.currentIcon == "./GreenFrog2.png")
         {
-            changeIcon("GreenFrog.png");
+            changeIcon("./GreenFrog.png");
         }
-        else if(this.currentIcon == "RedFrog2.png")
+        else if(this.currentIcon == "./RedFrog2.png")
         {
-            changeIcon("RedFrog.png");
+            changeIcon("./RedFrog.png");
         }
-        else if(this.currentIcon == "RedFrog.png")
+        else if(this.currentIcon == "./RedFrog.png")
         {
-            changeIcon("RedFrog2.png");
+            changeIcon("./RedFrog2.png");
         }
     }
 
@@ -139,15 +139,15 @@ public class Square
         this.containsFrog = frogType;
         if(this.containsFrog == 0)
         {
-            changeIcon("LilyPad.png");
+            changeIcon("./LilyPad.png");
         }
         else if(this.containsFrog == 1)
         {
-            changeIcon("GreenFrog.png");
+            changeIcon("./GreenFrog.png");
         }
         else if(this.containsFrog == 2)
         {
-            changeIcon("RedFrog.png");
+            changeIcon("./RedFrog.png");
         }
     }
 
@@ -176,6 +176,6 @@ public class Square
     void taken()
     {
         this.containsFrog = 0;
-        changeIcon("LilyPad.png");
+        changeIcon("./LilyPad.png");
     }
 }
