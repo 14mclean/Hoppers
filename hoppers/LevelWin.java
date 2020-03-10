@@ -20,6 +20,7 @@ public class LevelWin implements ActionListener
     private long endNanoTime;
     private boolean[] beatenLevel = new boolean[40];
     private boolean won = true;
+    private double deltaTime;
     
     /**
      * Starts Level Decider window on 'level 0' with no game board
@@ -40,6 +41,7 @@ public class LevelWin implements ActionListener
 
         decisionWin.setSize(275, 75);
         decisionWin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        decisionWin.setLocation(1000, 250);
         decisionWin.setVisible(true);
         for(int count = 0; count < 40; count++)
         {
@@ -87,6 +89,7 @@ public class LevelWin implements ActionListener
             if(currentLevel == 40)
             {
                 endNanoTime = System.nanoTime();
+                deltaTime = (endNanoTime - startNanoTime) / Math.pow(10, 9);
                 currentLevel++;
                 currentBoard.close();
                 currentBoard = null;
@@ -99,9 +102,9 @@ public class LevelWin implements ActionListener
                         won = false;
                     }
                 }
-                if(won)
+                if(won || !won)
                 {
-                    JOptionPane.showMessageDialog(decisionWin, "Total time taken for 40 levels: " + (double) (endNanoTime-startNanoTime)/1000000000.00 + "s", "Time Taken", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(decisionWin, "Total time taken for 40 levels: " + Math.round( deltaTime * 100.0) / 100.0 + "s", "Time Taken", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else
                 {
