@@ -109,8 +109,6 @@ public class Square
      */
     void changeIcon(String path)
     {
-        System.out.println(path);
-        System.out.println(this.getClass());
         this.button.setIcon(new ImageIcon(this.getClass().getResource(path)));
         this.currentIcon = path;
     }

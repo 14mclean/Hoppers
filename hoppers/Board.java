@@ -51,6 +51,7 @@ public class Board implements ActionListener
             }
             tempCoords[0] = 0;
         }
+        
         win.add(gamePanel, BorderLayout.CENTER);
         win.setSize(750, 750);
         win.setVisible(true);
