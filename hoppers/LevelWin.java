@@ -21,6 +21,11 @@ public class LevelWin implements ActionListener
     private boolean[] beatenLevel = new boolean[40];
     private boolean won = true;
     private double deltaTime;
+    private JPanel topPanel = new JPanel();
+    private JPanel bottomPanel = new JPanel();
+    private JButton resetButton = new JButton("Reset");
+    private JButton solveButton = new JButton("Solve(WIP)");
+    private JButton designerButton = new JButton("Designer(WIP)");
     
     /**
      * Starts Level Decider window on 'level 0' with no game board
@@ -32,14 +37,22 @@ public class LevelWin implements ActionListener
         previousButton.addActionListener(this);
         previousButton.setEnabled(false);
         nextButton.addActionListener(this);
+        resetButton.addActionListener(this);
 
-        decisionWin.setLayout(new FlowLayout());
+        decisionWin.setLayout(new BorderLayout());
+        topPanel.setLayout(new FlowLayout());
+        bottomPanel.setLayout(new BorderLayout());
 
-        decisionWin.add(previousButton);
-        decisionWin.add(levelDisplay);
-        decisionWin.add(nextButton);
+        decisionWin.add(topPanel, BorderLayout.NORTH);
+        decisionWin.add(bottomPanel, BorderLayout.SOUTH);
+        topPanel.add(previousButton);
+        topPanel.add(levelDisplay);
+        topPanel.add(nextButton);
+        bottomPanel.add(solveButton, BorderLayout.EAST);
+        bottomPanel.add(resetButton, BorderLayout.CENTER);
+        bottomPanel.add(designerButton, BorderLayout.WEST);
 
-        decisionWin.setSize(275, 75);
+        decisionWin.setSize(320, 100);
         decisionWin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         decisionWin.setLocation(1000, 250);
         decisionWin.setVisible(true);
@@ -88,6 +101,15 @@ public class LevelWin implements ActionListener
         {
             levelWon();
         }
+        else if(source.hashCode() == resetButton.hashCode())
+        {
+            if(currentBoard != null)
+            {
+                this.currentBoard.close();
+                currentBoard = null;
+                currentBoard = new Board(currentLevel, this);
+            }
+        }
     }
 
     void levelWon()
@@ -133,13 +155,6 @@ public class LevelWin implements ActionListener
             currentBoard = new Board(currentLevel, this);
             levelDisplay.setText("Level: " + currentLevel);
         }
-    }
-
-    void LevelReset()
-    {
-        this.currentBoard.close();
-        currentBoard = null;
-        currentBoard = new Board(currentLevel, this);
     }
 
     /**
