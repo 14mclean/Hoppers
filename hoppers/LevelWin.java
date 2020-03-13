@@ -81,53 +81,65 @@ public class LevelWin implements ActionListener
             currentBoard.close();
             currentBoard = null;
             currentLevel--;
-            currentBoard = new Board(currentLevel);
+            currentBoard = new Board(currentLevel, this);
             levelDisplay.setText("Level: " + currentLevel);
         }
         else if(source.hashCode() == nextButton.hashCode())
         {
-            if(currentLevel == 40)
+            levelWon();
+        }
+    }
+
+    void levelWon()
+    {
+        if(currentLevel == 40)
+        {
+            endNanoTime = System.nanoTime();
+            deltaTime = (endNanoTime - startNanoTime) / (Math.pow(10, 9)*60);
+            currentLevel++;
+            currentBoard.close();
+            currentBoard = null;
+            nextButton.setEnabled(false);
+            levelDisplay.setText("Timer Stopped");
+            for(int count = 0; count < beatenLevel.length; count++)
             {
-                endNanoTime = System.nanoTime();
-                deltaTime = (endNanoTime - startNanoTime) / Math.pow(10, 9);
-                currentLevel++;
-                currentBoard.close();
-                currentBoard = null;
-                nextButton.setEnabled(false);
-                levelDisplay.setText("Timer Stopped");
-                for(int count = 0; count < beatenLevel.length; count++)
+                if(!beatenLevel[count])
                 {
-                    if(!beatenLevel[count])
-                    {
-                        won = false;
-                    }
-                }
-                if(won || !won)
-                {
-                    JOptionPane.showMessageDialog(decisionWin, "Total time taken for 40 levels: " + Math.round( deltaTime * 100.0) / 100.0 + "s", "Time Taken", JOptionPane.INFORMATION_MESSAGE);
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(decisionWin, "Did not complete all 40 levels", "Error", JOptionPane.ERROR_MESSAGE);
+                    won = false;
                 }
             }
-            else if(currentLevel == 0)
+            if(won || !won)
             {
-                previousButton.setEnabled(true);
-                currentLevel++;
-                currentBoard = new Board(currentLevel);
-                levelDisplay.setText("Level: " + currentLevel);
-                startNanoTime = System.nanoTime();
+                JOptionPane.showMessageDialog(decisionWin, "Total time taken for 40 levels: " + Math.round( deltaTime * 100.0) / 100.0 + " mins", "Time Taken", JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {
-                this.currentBoard.close();
-                currentBoard = null;
-                currentLevel++;
-                currentBoard = new Board(currentLevel);
-                levelDisplay.setText("Level: " + currentLevel);
+                JOptionPane.showMessageDialog(decisionWin, "Did not complete all 40 levels", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+        else if(currentLevel == 0)
+        {
+            previousButton.setEnabled(true);
+            currentLevel++;
+            currentBoard = new Board(currentLevel, this);
+            levelDisplay.setText("Level: " + currentLevel);
+            startNanoTime = System.nanoTime();
+        }
+        else
+        {
+            this.currentBoard.close();
+            currentBoard = null;
+            currentLevel++;
+            currentBoard = new Board(currentLevel, this);
+            levelDisplay.setText("Level: " + currentLevel);
+        }
+    }
+
+    void LevelReset()
+    {
+        this.currentBoard.close();
+        currentBoard = null;
+        currentBoard = new Board(currentLevel, this);
     }
 
     /**

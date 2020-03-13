@@ -18,14 +18,16 @@ public class Board implements ActionListener
     private int[] startPosition = new int[2], endPosition = new int[2];
     private Level currentLevel;
     private Square startSquare;
+    private LevelWin masterWin;
 
     /**
      * Creates the game board with the correct level layout
      * 
      * @param levelNum The level which the user is on
      */
-    Board(int levelNum)
+    Board(int levelNum, LevelWin masterWin)
     {
+        this.masterWin = masterWin;
         currentLevel = new Level(levelNum);
 
         for(int[] tempCoords = {0,0}; tempCoords[1] < 5; tempCoords[1]++)
@@ -128,15 +130,15 @@ public class Board implements ActionListener
         endPosition = endSquare.getCoordinates();
         pressedSquare = null;
 
-        if(endSquare.hasFrog() > 0)
-        {
-            return;
-        }
-
         if(startSquare.getCoordinates()[0] == endSquare.getCoordinates()[0] && startSquare.getCoordinates()[1] == endSquare.getCoordinates()[1])
         {
             pressed = false;
             startSquare.switchIcon();
+            return;
+        }
+
+        if(endSquare.hasFrog() > 0)
+        {
             return;
         }
 
@@ -215,6 +217,8 @@ public class Board implements ActionListener
             return;
         }
 
+        masterWin.addWin(this.currentLevel.getLevelNumber());
         JOptionPane.showMessageDialog(win, "Winner!", "Result", JOptionPane.INFORMATION_MESSAGE);
+        masterWin.levelWon();
     }
 }
