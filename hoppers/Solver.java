@@ -26,5 +26,7 @@ public class Solver implements Runnable
     }
 
     private void calcNode(Board boardState, List<int[][]> moveList)
-    {}
+    {
+        // Calc possible move
+    }
 }
