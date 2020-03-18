@@ -24,6 +24,7 @@ public class Board implements ActionListener
      * Creates the game board with the correct level layout
      * 
      * @param levelNum The level which the user is on
+     * @param masterWin The level decider window that controls this board 
      */
     Board(int levelNum, LevelWin masterWin)
     {

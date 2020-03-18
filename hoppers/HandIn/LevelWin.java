@@ -108,6 +108,10 @@ public class LevelWin implements ActionListener
         }
     }
 
+    /**
+     * Displays a result when called
+     * Different message displayed when beaten all levels
+     */
     void levelWon()
     {
         if(currentLevel == 40)
