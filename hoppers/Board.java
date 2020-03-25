@@ -1,3 +1,4 @@
+import java.util.*;
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
@@ -220,5 +221,56 @@ public class Board implements ActionListener
         masterWin.addWin(this.currentLevel.getLevelNumber());
         JOptionPane.showMessageDialog(win, "Winner!", "Result", JOptionPane.INFORMATION_MESSAGE);
         masterWin.levelWon();
+    }
+
+    public List<int[]> getGreenFrogs()
+    {
+        List<int[]> temp = new ArrayList<>();
+
+        for(int x = 0, place = 0; x < 5; x++)
+        {
+            for(int y = 0; y < 5; y++)
+            {
+                if(grid[x][y].hasFrog() == 1)
+                {
+                    temp.add(new int[2]);
+                    temp.get(place)[0] = x;
+                    temp.get(place)[1] = y;
+                    place++;
+                }
+            }
+            x = 0;
+        }
+        return temp;
+    }
+
+    public int[] getRedFrogs()
+    {
+        int[] temp = new int[2];
+
+        for(int x = 0; x < 5; x++)
+        {
+            for(int y = 0; y < 5; y++)
+            {
+                if(grid[x][y].hasFrog() == 2)
+                {
+                    temp[0] = x;
+                    temp[1] = y;
+                    return temp;
+                }
+            }
+            x = 0;
+        }
+        return temp;
+    }
+
+    public Square getSquare(int x, int y)
+    {
+        return grid[x][y];
+    }
+
+    public Square getSquare(int[] coords)
+    {
+        return grid[coords[0]][coords[1]];
     }
 }
