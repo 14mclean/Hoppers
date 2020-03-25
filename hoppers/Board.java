@@ -184,11 +184,17 @@ public class Board implements ActionListener
      * @param takenSquare The square on which the taken frog resides
      * @param endSquare The square where the moving frog will end up
      */
-    private void moveFrog(Square takenSquare, Square endSquare)
+    void moveFrog(Square takenSquare, Square endSquare)
     {
         startSquare.moveTo(endSquare);
         takenSquare.taken();
         pressed = false;
+    }
+
+    public void moveFrog(Square startSquare, Square takenSquare, Square endSquare)
+    {
+        startSquare.moveTo(endSquare);
+        takenSquare.taken();
     }
 
     /**
@@ -225,7 +231,7 @@ public class Board implements ActionListener
 
     public List<int[]> getGreenFrogs()
     {
-        List<int[]> temp = new ArrayList<>();
+        List<int[]> temp = new ArrayList<int[]>();
 
         for(int x = 0, place = 0; x < 5; x++)
         {
@@ -239,12 +245,11 @@ public class Board implements ActionListener
                     place++;
                 }
             }
-            x = 0;
         }
         return temp;
     }
 
-    public int[] getRedFrogs()
+    public int[] getRedFrog()
     {
         int[] temp = new int[2];
 
@@ -259,7 +264,6 @@ public class Board implements ActionListener
                     return temp;
                 }
             }
-            x = 0;
         }
         return temp;
     }
@@ -272,5 +276,60 @@ public class Board implements ActionListener
     public Square getSquare(int[] coords)
     {
         return grid[coords[0]][coords[1]];
+    }
+
+    public int getFrogNum()
+    {
+        int temp = 0;
+
+        for(int x = 0; x < 5; x++)
+        {
+            for(int y = 0; y < 5; y++)
+            {
+                if(grid[x][y].hasFrog() > 0)
+                {
+                    temp++;
+                }
+            }
+        }
+        return temp;
+    }
+
+    public List<int[]> getFrogCoords()
+    {
+        List<int[]> temp = new ArrayList<int[]>();
+
+        for(int x = 0, place = 0; x < 5; x++)
+        {
+            for(int y = 0; y < 5; y++)
+            {
+                if(grid[x][y].hasFrog() > 0)
+                {
+                    temp.add(new int[2]);
+                    temp.get(place)[0] = x;
+                    temp.get(place)[1] = y;
+                    place++;
+                }
+            }
+        }
+        return temp;  
+    }
+
+    public boolean hasWon()
+    {
+        if(this.getGreenFrogs().size() == 0)
+        {
+            for(int x = 0; x < 5; x++)
+            {
+                for(int y = 0; y < 5; y++)
+                {
+                    if(this.getSquare(x, y).hasFrog() == 2)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

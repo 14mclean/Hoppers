@@ -1,29 +1,36 @@
-import java.util.*;
-
 public class Solver implements Runnable
 {
-    private int[] redFrogLocation;
-    private List<int[]> greenFrogLocations;
-    private int givenFrogIndex;
-    private int[][] allMoves = {{0,-2},{2,-2},{2,0},{2,2},{0,2},{-2,2},{-2,0},{-2,-2},};
+    private Board beginningState;
+    private int frogIndex;
+    private Square startSquare;
 
-    /**
-     * 
-     * @param currentBoard
-     * @param tree
-     * @param givenFrogIndex if 1+greenFrogList == red frog
-     */
-
-    Solver(Board currentState, List<int[][]> list, int givenFrogIndex)
+    Solver(Board gameState, int frogIndex)
     {
-        this.redFrogLocation = currentState.getRedFrogs();
-        this.greenFrogLocations = currentState.getGreenFrogs();
-        this.givenFrogIndex = givenFrogIndex;
+        this.beginningState = gameState;
+        this.frogIndex = frogIndex;
+        this.startSquare = beginningState.getSquare(beginningState.getFrogCoords().get(frogIndex));
     }
 
     public void run()
     {
-        System.out.println("Thread: " + Thread.currentThread().getId());
+        System.out.println("Thread " + (frogIndex+1) + " has started");
+
+        for(int[] coords = {0,0}; coords[0] < 5; coords[0]++)
+        {
+            for(;coords[1] < 5; coords[1]++)
+            {
+                if(movePossible(this.startSquare, beginningState.getSquare(coords[0], coords[1]), beginningState))
+                {
+                    beginningState.moveFrog(this.startSquare, getTakenSquare(beginningState, this.startSquare.getCoordinates(), coords), beginningState.getSquare(coords));
+                    
+                    if(makeNode(beginningState))
+                    {
+                        System.out.println("Found Solution");
+                    }
+                }
+            }
+        }
+
     }
 
     private boolean movePossible(Square startSquare, Square endSquare, Board currentState)
@@ -72,8 +79,44 @@ public class Solver implements Runnable
         }
     }
 
-    private void calcNode(Board boardState, List<int[][]> moveList)
+    private Square getTakenSquare(Board board, int[] startCoords, int[] endCoords)
+    {      
+        if(startCoords[0] == endCoords[0]) // Vertical
+        {
+            return board.getSquare(startCoords[0], startCoords[1]);
+        }
+        else if(startCoords[1] == endCoords[1]) // Horizontal
+        {
+            return board.getSquare(startCoords[0]+1, startCoords[1]);
+        }
+        else // Diagonal
+        {
+            return board.getSquare(startCoords[0]+1, startCoords[1]+1);
+        }
+    }
+
+    private boolean makeNode(Board gameState)
     {
-        // Calc possible move
+        if(gameState.hasWon())
+        {
+            return true;
+        }
+
+        for(int count = 0; count < gameState.getFrogNum(); count++)
+        {
+            for(int x = 0; x < 5; x++)
+            {
+                for(int y = 0; y < 5; y++)
+                {
+                    if(movePossible(gameState.getSquare(gameState.getFrogCoords().get(count)), gameState.getSquare(x, y), gameState))
+                    {
+                        int[] tempCoords = {x,y};
+                        gameState.moveFrog(getTakenSquare(gameState, gameState.getFrogCoords().get(count), tempCoords), gameState.getSquare(x, y));
+                        return makeNode(gameState);
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

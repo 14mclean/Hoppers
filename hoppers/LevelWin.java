@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Creates Level Decider window which controls boards and timing
@@ -29,7 +27,6 @@ public class LevelWin implements ActionListener
     private JButton solveButton = new JButton("Solve(WIP)");
     private JButton designerButton = new JButton("Designer(WIP)");
     private Thread[] threads;
-    private List<int[][]> moveList = new ArrayList<int[][]>();
     
     /**
      * Starts Level Decider window on 'level 0' with no game board
@@ -119,11 +116,10 @@ public class LevelWin implements ActionListener
         {
             if(currentBoard != null)
             {
-                threads = new Thread[new Level(currentLevel).getGreenFrogs().size() +1];
-
-                for(int count = 0; count < threads.length; count++)
+                threads = new Thread[currentBoard.getFrogNum()];
+                for(int count = 0; count < currentBoard.getFrogNum(); count++)
                 {
-                    threads[count] = new Thread(new Solver(currentBoard, moveList, count));
+                    threads[count] = new Thread( new Solver(currentBoard, count));
                     threads[count].start();
                 }
             }
