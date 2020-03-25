@@ -119,7 +119,7 @@ public class LevelWin implements ActionListener
                 threads = new Thread[currentBoard.getFrogNum()];
                 for(int count = 0; count < currentBoard.getFrogNum(); count++)
                 {
-                    threads[count] = new Thread( new Solver(currentBoard, count));
+                    threads[count] = new Thread( new Solver(currentBoard/*, count*/));
                     threads[count].start();
                 }
             }
