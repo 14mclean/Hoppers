@@ -38,7 +38,7 @@ public class Solver implements Runnable
     private boolean movePossible(Square startSquare, Square endSquare, Board currentState)
     {
         int[] startPosition = startSquare.getCoordinates(), endPosition = endSquare.getCoordinates();
-        
+
         if(endSquare.hasFrog() > 0)
         {
             return false;
@@ -95,12 +95,13 @@ public class Solver implements Runnable
                         }
                         else
                         {
-                            makeNode(gameState);
+                            return makeNode(gameState);
                         }
                     }
                 }
             }
         }
+
         return false;
     }
 }
